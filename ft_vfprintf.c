@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*   ft_vfprintf.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/06 23:36:16 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/07 20:29:40 by kycho            ###   ########.fr       */
+/*   Created: 2020/03/07 20:27:06 by kycho             #+#    #+#             */
+/*   Updated: 2020/03/07 21:28:19 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINTF_H
-# define FT_PRINTF_H
+#include "ft_printf.h"
 
-#include <stdarg.h>
-#include "libft/libft.h"
+#include <stdio.h>
 
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
+int	ft_vfprintf(int fd, const char *format, va_list arg)
+{
+	size_t i;
+	char ch;
 
-int	ft_printf(const char *format, ...);
-int	ft_vfprintf(int fd, const char *format, va_list arg);
-
-
-#endif
+	i = 0;
+	while (format[i])
+	{
+		if (format[i] == '%')
+		{
+			if (format[i+ 1] == 'c')
+			{
+				ch = va_arg(arg, int);
+				write(STDOUT, &ch, 1);
+				i++;
+			}
+		}
+		else
+		{
+			write(STDOUT, &format[i], 1);
+		}
+		i++;
+	}
+	return (0);
+}

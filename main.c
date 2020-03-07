@@ -2,5 +2,7 @@
 
 int main(void)
 {
-	write(1, "hello", 5);
+	ft_printf("hello world %c    %c  \n", 'a', 'b');
+
+	return (0);
 }

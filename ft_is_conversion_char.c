@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_vfprintf.c                                      :+:      :+:    :+:   */
+/*   ft_is_conversion_char.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/07 20:27:06 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/07 22:41:47 by kycho            ###   ########.fr       */
+/*   Created: 2020/03/07 22:34:06 by kycho             #+#    #+#             */
+/*   Updated: 2020/03/07 22:40:24 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	ft_vfprintf(int fd, const char *format, va_list arg)
+int	ft_is_conversion_char(char ch)
 {
 	size_t idx;
+	char *conversions;
 
 	idx = 0;
-	while (format[idx])
+	while (conversions[idx])
 	{
-		if (format[idx] == FT_PRINTF_FORMAT_CHAR)
-		{
-			idx++;
-			idx += ft_conversion_handler(fd, &format[idx], arg);
-		}
-		else
-		{
-			ft_putchar_fd(format[idx], fd);
-			idx++;
-		}
+		if (conversions[idx] == ch)
+			return (TRUE);
+		idx++;
 	}
-	// return value 수정해야함
-	return (0);
+	return (FALSE);
 }

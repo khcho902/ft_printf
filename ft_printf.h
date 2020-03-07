@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/06 23:36:16 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/07 20:29:40 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/07 22:42:30 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,17 @@
 #include <stdarg.h>
 #include "libft/libft.h"
 
-# define STDIN 0
-# define STDOUT 1
-# define STDERR 2
+#define FT_PRINTF_FD STDOUT
+#define FT_PRINTF_FORMAT_CHAR '%'
+#define FT_PRINTF_CONVERSION_CHARS "cspdiuxX%"
 
 int	ft_printf(const char *format, ...);
-int	ft_vfprintf(int fd, const char *format, va_list arg);
+int	ft_vfprintf(int fd, const char *format, va_list ap);
+size_t	ft_conversion_handler(int fd, const char *sub_format, va_list ap);
+
+
+// 구현 아직 안함
+int	ft_is_conversion_char(char ch);
 
 
 #endif

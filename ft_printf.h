@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:55:00 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/12 23:28:10 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/13 01:03:37 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 typedef struct	s_printf_condition
 {
 	const char	*format;
-	size_t		idx;
 	va_list		ap;
 	int		fd;
 	int		written_cnt;

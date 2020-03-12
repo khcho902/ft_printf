@@ -3,7 +3,9 @@ NAME = libftprintf.a
 LIBFT_PATH = ./libft
 LIBFT_LIB = libft.a
 
-SRCS = ./ft_printf.c
+SRCS = ./ft_printf.c \
+       ./ft_conversion_handler.c \
+       ./ft_printf_putchar.c
 
 OBJS = $(SRCS:.c=.o)
 

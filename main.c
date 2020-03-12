@@ -3,8 +3,7 @@
 
 int	main(void)
 {
-	ft_printf("%d\n", 10);
-	printf("%d\n", 10);
+	ft_printf("%c %c %c %c ", 'A', 'B', 'C', 'D');
 	
 	return (0);
 }

@@ -6,11 +6,12 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 21:03:31 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/12 23:40:15 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/13 00:40:17 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h>
 
 static int	is_in_set(char ch, char *set)
 {
@@ -33,6 +34,9 @@ static size_t	get_conversion_len(const char *format, size_t start)
 	end = start + 1;
 	while (format[end] && !is_in_set(format[end], FT_PRINTF_SPECIFIERS))
 		end++;
+
+	if (format[end] == '\0')
+		return (end - start);
 	return (end + 1 - start);
 }
 

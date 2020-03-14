@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:55:00 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/14 18:10:59 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/14 23:06:24 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,13 @@ typedef struct	s_printf_flag
 	int	zero;
 	int	minus;
 	int	width;
+	int	precision_exist;
 	int	precision;
 }		t_printf_flag;
 
 int	ft_printf(const char * format, ...);
-void	ft_conversion_handler(t_printf_condition *condition);
-void	ft_printf_putchar(t_printf_condition *condition);
+int	ft_conversion_handler(t_printf_condition *condition, char *specifiers);
+int	ft_printf_putchar(t_printf_condition *condition);
 
 
 #endif

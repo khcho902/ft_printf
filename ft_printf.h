@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:55:00 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/13 01:03:37 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/14 18:07:05 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,14 @@ typedef struct	s_printf_condition
 	int		written_cnt;
 }		t_printf_condition;
 
+typedef struct	s_printf_flag
+{
+	int	space;
+	int	zero;
+	int	minus;
+	int	width;
+	int	precision;
+}		t_printf_flag;
 
 int	ft_printf(const char * format, ...);
 void	ft_conversion_handler(t_printf_condition *condition);

@@ -5,7 +5,10 @@ LIBFT_LIB = libft.a
 
 SRCS = ./ft_printf.c \
        ./ft_conversion_handler.c \
-       ./ft_printf_putchar.c
+       ./ft_printf_putchar.c \
+       ./ft_isinset.c \
+       ./ft_get_specifier.c \
+       ./ft_set_flag.c
 
 OBJS = $(SRCS:.c=.o)
 

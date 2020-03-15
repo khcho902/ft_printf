@@ -3,7 +3,7 @@
 
 int	main(void)
 {
-	ft_printf("%*.*d",10, 100, 1010);
+	ft_printf("%-0 *.*d",10, 100, 1010);
 	
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 21:03:31 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/15 21:17:16 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/16 04:57:47 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	get_conversion_len(const char *format)
 	return (len); // 에러가 나야하는 상황임
 }
 
-void	*get_converter(char *specifier)
+void	*get_converter(char specifier)
 {
 	if (specifier == 'c')
 		return (&ft_printf_converter_char);
@@ -38,7 +38,7 @@ int	ft_conversion_handler(t_printf_condition *condition, char *specifiers)
 {
 	char specifier;
 	t_printf_flag flag;
-	void *converter;
+	char *(*converter)(t_printf_condition *, t_printf_flag *);
 	char *converted_res;
 
 	if (!(specifier = ft_get_specifier(condition->format, specifiers)))
@@ -53,8 +53,18 @@ int	ft_conversion_handler(t_printf_condition *condition, char *specifiers)
 	}
 
 	converter = get_converter(specifier);
-	converted_res = run_converter(flag, condition, converter);
-
+	if (converter == NULL)
+	{
+		printf("converter is NULL");
+		return (-1);
+	}
+//	converted_res = run_converter(flag, condition, converter);
+	converted_res = converter(condition, &flag);
+	if (converted_res == NULL)
+	{
+		printf("converter error");
+		return(-1);
+	}
 
 
 	/*
@@ -74,5 +84,7 @@ int	ft_conversion_handler(t_printf_condition *condition, char *specifiers)
 	for(int i = 0; i<len; i++)
 		write(1, "@", 1);
 	*/
+
+	ft_putstr_fd(converted_res, condition->fd);
 	return (1);
 }

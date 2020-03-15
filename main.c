@@ -3,7 +3,7 @@
 
 int	main(void)
 {
-	ft_printf("%000-0.0010c ", 'A', 'B', 'C', 'D');
+	ft_printf("%*.*d",10, 100, 1010);
 	
 	return (0);
 }

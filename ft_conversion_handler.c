@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 21:03:31 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/14 23:53:54 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/15 19:40:33 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,33 @@ int	set_flag(t_printf_flag *f, t_printf_condition *c, char specifier)
 		if (format[idx] == '-')
 			f->minus = 1;
 		idx++;
-	}	
-	f->width = ft_atoi(&format[idx]);
-	while (ft_isdigit(format[idx]))
+	}
+	if (format[idx] == '*')
+	{	
+		f->width = va_arg(c->ap, int);
 		idx++;
+	}
+	else
+	{
+		f->width = ft_atoi(&format[idx]);
+		while (ft_isdigit(format[idx]))
+			idx++;
+	}
 	if (format[idx] == '.')
 	{
 		idx++;
-		f->precision = ft_atoi(&format[idx]);
 		f->precision_exist = 1;
-		while (ft_isdigit(format[idx]))
+		if (format[idx] == '*')
+		{
+			f->precision = va_arg(c->ap, int);
 			idx++;
+		}
+		else
+		{
+			f->precision = ft_atoi(&format[idx]);
+			while (ft_isdigit(format[idx]))
+				idx++;
+		}
 	}
 	if (format[idx] != specifier)
 		return (-1);

@@ -9,7 +9,8 @@ SRCS = ./ft_printf.c \
        ./ft_isinset.c \
        ./ft_get_specifier.c \
        ./ft_set_flag.c \
-       ./ft_printf_converter_char.c
+       ./ft_printf_converter_char.c \
+       ./ft_printf_converter_string.c
 
 
 OBJS = $(SRCS:.c=.o)

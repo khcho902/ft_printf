@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 21:03:31 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/16 04:57:47 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/16 16:17:13 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	*get_converter(char specifier)
 {
 	if (specifier == 'c')
 		return (&ft_printf_converter_char);
+	else if(specifier == 's')
+		return (&ft_printf_converter_string);
 	return (NULL);
 }
 

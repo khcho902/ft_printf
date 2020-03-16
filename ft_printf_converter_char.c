@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 02:05:43 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/16 04:48:20 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/17 02:29:05 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,19 @@
 
 char	*ft_printf_converter_char(t_printf_condition *c, t_printf_flag *f)
 {
-	char *str;
-	size_t need_len;
+	char *res_str;
+	size_t res_str_len;
 	size_t idx;
-/*
-	str = (char *)malloc(sizeof(char) * 10);
-	str[0] = 'h';
-	str[1] = 'e';
-	str[2] = 'l';
-	str[3] = 'l';
-	str[4] = 'o';
-	str[5] = 'w';
-	str[6] = '\0';
-*/
+	
 	if (f->space || f->zero || f->precision_exist)
 		return (NULL);
-	need_len = (f->width != 0) ? f->width : 1;
-	str = (char *)malloc(sizeof(char) * (need_len + 1));
-	if (str == NULL)
+	res_str_len = (f->width != 0) ? f->width : 1;
+	res_str = (char *)malloc(sizeof(char) * (res_str_len + 1));
+	if (res_str == NULL)
 		return (NULL);
-	ft_memset(str, ' ', need_len);
-	str[need_len] = '\0';
-	idx = (f->minus != 0) ? 0 : need_len - 1;
-	str[idx] = va_arg(c->ap, int);
-	return (str);
+	ft_memset(res_str, ' ', res_str_len);
+	res_str[res_str_len] = '\0';
+	idx = (f->minus != 0) ? 0 : res_str_len - 1;
+	res_str[idx] = va_arg(c->ap, int);
+	return (res_str);
 }

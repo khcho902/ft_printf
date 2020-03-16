@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:54:50 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/14 19:08:35 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/17 02:26:17 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,12 @@ int	ft_printf(const char * format, ...)
 	int written;
 	char *specifiers;
 	
-	t_printf_condition condition;
+	if (format == NULL)
+		return (-1);
 
+	t_printf_condition condition;
 	total_written = 0;	
 	specifiers = FT_PRINTF_SPECIFIERS;
-	
 	condition.format = format;
 	va_start(condition.ap, format);
 	condition.fd = FT_PRINTF_FD;

@@ -3,7 +3,11 @@
 
 int	main(void)
 {
-	ft_printf("%-*c\n %c %c %c    \n",5,'a', 'b', 'c', 'd');
+
+	ft_printf("%-*.*s\n %s\n", 22,103, "ahah");
+
+
+	printf("%-*.*s\n %s\n",22,103, "ahah");
 	
 	return (0);
 }

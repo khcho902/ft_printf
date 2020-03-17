@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:55:00 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/16 16:20:01 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/17 22:02:01 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_set_flag(t_printf_flag *f, t_printf_condition *c, char specifier);
 
 char	*ft_printf_converter_char(t_printf_condition *c, t_printf_flag *f);
 char 	*ft_printf_converter_string(t_printf_condition *c, t_printf_flag *f);
-
+char	*ft_printf_converter_pointer(t_printf_condition *c, t_printf_flag *f);
 
 int	ft_isinset(char ch, const char *set);
 

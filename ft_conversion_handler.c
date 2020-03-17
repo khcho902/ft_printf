@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 21:03:31 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/16 16:17:13 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/17 23:09:13 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	*get_converter(char specifier)
 		return (&ft_printf_converter_char);
 	else if(specifier == 's')
 		return (&ft_printf_converter_string);
+	else if(specifier == 'p')
+		return (&ft_printf_converter_pointer);
 	return (NULL);
 }
 
@@ -88,5 +90,6 @@ int	ft_conversion_handler(t_printf_condition *condition, char *specifiers)
 	*/
 
 	ft_putstr_fd(converted_res, condition->fd);
+	free(converted_res);
 	return (1);
 }

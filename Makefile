@@ -19,7 +19,7 @@ OBJS = $(SRCS:.c=.o)
 INCS = .
 
 CC = gcc
-CFLAG = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 LIBC = ar -rcs
 RM = rm -f
 

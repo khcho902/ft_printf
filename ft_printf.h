@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:55:00 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/17 22:02:01 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/18 00:47:51 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef struct	s_printf_flag
 	int	space;
 	int	zero;
 	int	minus;
-	int	width;
+	size_t	width;
 	int	precision_exist;
-	int	precision;
+	size_t	precision;
 }		t_printf_flag;
 
 int	ft_printf(const char * format, ...);

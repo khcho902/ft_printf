@@ -1,23 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_uitoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/17 23:21:30 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/18 23:55:11 by kycho            ###   ########.fr       */
+/*   Created: 2020/03/18 22:55:26 by kycho             #+#    #+#             */
+/*   Updated: 2020/03/18 22:57:23 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-int	main(void)
+static size_t	get_n_len(unsigned int n)
 {
-	ft_printf("%15.2d\n",2147483647);
-	printf(   "%15.2d\n",2147483647);
+	size_t len;
 
+	if (n == 0)
+		return (1);
+	len = 0;
+	while (n != 0)
+	{
+		len++;
+		n /= 10;
+	}
+	return (len);
+}
+
+char	*ft_uitoa(unsigned int n)
+{
+	char	*res;
+	size_t	len;
 	
-	return (0);
+	len = get_n_len(n);
+	if(!(res = (char *)malloc(sizeof(char)*(len + 1))))
+		return (NULL);
+	res[0] = '0';
+	res[len] = '\0';
+	len--;
+	while (n != 0)
+	{
+		res[len] = (n % 10) + '0';
+		n /= 10;
+		len--;
+	}
+	return (res);
 }

@@ -6,13 +6,15 @@ LIBFT_LIB = libft.a
 SRCS = ./ft_printf.c \
        ./ft_conversion_handler.c \
        ./ft_printf_putchar.c \
-       ./ft_isinset.c \
        ./ft_get_specifier.c \
        ./ft_set_flag.c \
        ./ft_printf_converter_char.c \
        ./ft_printf_converter_string.c \
        ./ft_printf_converter_pointer.c \
-       ./ft_ultoa_base.c
+       ./ft_printf_converter_integer.c \
+       ./ft_isinset.c \
+       ./ft_ultoa_base.c \
+       ./ft_uitoa.c \
 
 
 OBJS = $(SRCS:.c=.o)

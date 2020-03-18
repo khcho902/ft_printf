@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 20:07:38 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/18 20:31:45 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/18 22:49:37 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*ft_ultoa_base(unsigned long n, char *base)
 	if (res == NULL)
 		return (NULL);
 	res[n_len] = '\0';
+	res[0] = '0';
 	n_len--;
 	while (n != 0)
 	{

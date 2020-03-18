@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:55:00 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/18 00:47:51 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/18 20:20:34 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ char 	*ft_printf_converter_string(t_printf_condition *c, t_printf_flag *f);
 char	*ft_printf_converter_pointer(t_printf_condition *c, t_printf_flag *f);
 
 int	ft_isinset(char ch, const char *set);
+char	*ft_ultoa_base(unsigned long n, char *base);
+
 
 #endif

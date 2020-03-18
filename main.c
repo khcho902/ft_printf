@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 23:21:30 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/18 00:51:28 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/18 20:32:09 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ int	main(void)
 {
 	int str = 10;
 	
-	ft_printf("%30p\n", &str);
-	printf("%30p\n", &str);
+	ft_printf("%p\n", &str);
+	printf("%p\n", &str);
 
 
 	

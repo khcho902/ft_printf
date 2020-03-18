@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 22:52:41 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/18 23:51:58 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/19 01:16:31 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	*ft_printf_converter_integer(t_printf_condition *c, t_printf_flag *f)
 
 	/////
 	res_str_len = write_pnum_str_len;
-	if (minus)
+	if (minus || f->space)
 		res_str_len++;
 	if (f->width > res_str_len)
 		res_str_len = f->width;
@@ -67,6 +67,8 @@ char	*ft_printf_converter_integer(t_printf_condition *c, t_printf_flag *f)
 		ft_memset(res_str, '0', res_str_len);
 		idx = res_str_len - pnum_str_len;
 		ft_memcpy(&res_str[idx], pnum_str, pnum_str_len);
+		if (f->space)
+			res_str[0] = ' ';
 		if (minus)
 			res_str[0] = '-';
 	}
@@ -82,8 +84,6 @@ char	*ft_printf_converter_integer(t_printf_condition *c, t_printf_flag *f)
 		idx = idx + write_pnum_str_len - pnum_str_len;
 		ft_memcpy(&res_str[idx], pnum_str, pnum_str_len);
 	}
-
-
 
 	/*
 	printf("pnum_str : %s\n", pnum_str);

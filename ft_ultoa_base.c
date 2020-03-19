@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 20:07:38 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/18 22:49:37 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/19 23:49:26 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	get_n_len(unsigned long n, size_t base_len)
 	return (n_len);
 }
 
-char	*ft_ultoa_base(unsigned long n, char *base)
+char	*ft_ultoa_base(unsigned long n, const char *base)
 {
 	char	*res;
 	int	n_len;

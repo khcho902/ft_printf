@@ -6,13 +6,13 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 21:42:16 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/19 22:25:56 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/19 23:52:13 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	init(va_list ap, t_printf_flag *f, long *n)
+static int	init(va_list ap, t_printf_flag *f, unsigned int *n)
 {
 	if (f->zero && f->minus)
 		return (-1);
@@ -69,7 +69,7 @@ char	*ft_printf_converter_unsigned_int(t_printf_condition *c, t_printf_flag *f)
 {
 	char *res;
 	size_t res_len;
-	long n;
+	unsigned int n;
 	t_num_str num;
 
 	if (init(c->ap, f, &n) == -1)

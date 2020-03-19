@@ -11,7 +11,8 @@ SRCS = ./ft_printf.c \
        ./ft_printf_converter_char.c \
        ./ft_printf_converter_string.c \
        ./ft_printf_converter_pointer.c \
-       ./ft_printf_converter_integer.c \
+       ./ft_printf_converter_int.c \
+       ./ft_printf_converter_unsigned_int.c \
        ./ft_isinset.c \
        ./ft_ultoa_base.c \
        ./ft_uitoa.c \

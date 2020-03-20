@@ -6,14 +6,15 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 20:40:46 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/15 20:41:20 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/20 20:39:56 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void    init_flag(t_printf_flag *flag)
+void    init_flag(t_printf_flag *flag, char specifier)
 {
+	flag->specifier = specifier;
 	flag->space = 0;
 	flag->zero = 0;
 	flag->minus = 0;
@@ -27,7 +28,7 @@ int     ft_set_flag(t_printf_flag *f, t_printf_condition *c, char specifier)
 	const char      *format;
 	size_t          idx;
 
-	init_flag(f);
+	init_flag(f, specifier);
 	format = c->format;
 	idx = 1;
 	while (format[idx] == ' '|| format[idx] == '-'|| format[idx] == '0')

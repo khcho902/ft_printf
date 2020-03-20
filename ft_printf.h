@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:55:00 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/19 23:50:00 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/20 20:37:07 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct	s_printf_condition
 
 typedef struct	s_printf_flag
 {
+	char	specifier;
 	int	space;
 	int	zero;
 	int	minus;

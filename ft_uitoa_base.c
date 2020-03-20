@@ -6,14 +6,14 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 22:57:18 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/19 23:50:20 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/20 22:16:31 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "ft_printf.h"
 
-int	get_n_len(unsigned int n, size_t base_len)
+static int	get_n_len(unsigned int n, size_t base_len)
 {
 	int n_len;
 

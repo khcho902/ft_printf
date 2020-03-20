@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 21:03:31 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/19 21:40:03 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/20 22:07:40 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ void	*get_converter(char specifier)
 		return (&ft_printf_converter_int);
 	else if(specifier == 'u')
 		return (&ft_printf_converter_unsigned_int);
+	else if(specifier == 'x' || specifier == 'X')
+		return (&ft_printf_converter_hex);
 	return (NULL);
 }
 

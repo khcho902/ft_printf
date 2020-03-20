@@ -6,13 +6,13 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 20:07:38 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/19 23:49:26 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/20 22:16:41 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	get_n_len(unsigned long n, size_t base_len)
+static int	get_n_len(unsigned long n, size_t base_len)
 {
 	int n_len;
 

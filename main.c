@@ -1,13 +1,12 @@
 #include "ft_printf.h"
 #include <stdio.h>
 
-int	main(void)
+int main(void)
 {
-	int res1;
+	int res;
 
-	res1 = ft_printf("%10.6s", NULL);
+	res = ft_printf("%*d\n",-10, 0);
 
-	printf("\n  res : %d\n", res1);
-
+	printf("\n\nres : %d\n", res);
 	return (0);
 }

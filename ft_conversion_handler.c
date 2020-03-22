@@ -6,12 +6,11 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 21:03:31 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/21 02:53:03 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/22 19:31:23 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
 size_t	get_conversion_len(const char *format, char specifier)
 {

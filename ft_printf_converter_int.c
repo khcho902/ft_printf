@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 22:52:41 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/19 22:26:08 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/22 19:36:37 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 static int	init(va_list ap, t_printf_flag *f, long *n, int *minus)
 {
-	if (f->zero && f->minus)
-		return (-1);
-	if (f->precision_exist)
+	if (f->minus || f->precision_exist)
 		f->zero = 0;
 	*minus = 0;
 	*n = va_arg(ap,int);
@@ -86,7 +84,11 @@ char	*ft_printf_converter_int(t_printf_condition *c, t_printf_flag *f)
 
 	if (init(c->ap, f, &n, &num.minus) == -1)
 		return (NULL);	
-	if (!(num.pnum = ft_uitoa(n)))
+	if (f->precision_exist && f->precision == 0 && n == 0)
+		num.pnum = ft_strdup("");
+	else
+		num.pnum = ft_uitoa(n);
+	if (num.pnum == NULL)
 		return (NULL);
 	num.pnum_len = ft_strlen(num.pnum);
 	num.write_pnum_len = get_write_pnum_len(f, num.pnum_len);

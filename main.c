@@ -4,13 +4,10 @@
 int	main(void)
 {
 	int res1;
-	int res2;
 
-	res1 = ft_printf("%d %%\n", 10);
-	res2 = printf("%d %%\n", 10);
+	res1 = ft_printf("%10.6s", NULL);
 
-	printf("%d\n", res1);
-	printf("%d\n", res2);
+	printf("\n  res : %d\n", res1);
 
 	return (0);
 }

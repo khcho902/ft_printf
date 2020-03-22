@@ -6,15 +6,13 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 16:15:39 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/17 03:21:56 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/22 18:33:23 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-
-size_t	get_write_str_len(t_printf_flag *f, size_t str_len)
+size_t	get_write_len(t_printf_flag *f, size_t str_len)
 {
 	size_t len;
 
@@ -27,23 +25,25 @@ size_t	get_write_str_len(t_printf_flag *f, size_t str_len)
 
 char	*ft_printf_converter_string(t_printf_condition *c, t_printf_flag *f)
 {
-	char *arg_str;
-	char *res_str;
-	size_t res_str_len;
-	size_t write_str_len;
+	char *arg;
+	char *res;
+	size_t res_len;
+	size_t write_len;
 	size_t idx;
 
-	if (f->space || f->zero)
+	if (!(arg = va_arg(c->ap, char *)))
+	{
+		arg = "(null)";
+		if (f->precision_exist && f->precision < ft_strlen(arg))
+			f->precision = 0;
+	}
+	write_len = get_write_len(f, ft_strlen(arg));
+	res_len = (write_len > f->width) ? write_len : f->width;
+	if (!(res = (char *)malloc(sizeof(char) *(res_len + 1))))
 		return (NULL);
-	arg_str = va_arg(c->ap, char *);
-	write_str_len = get_write_str_len(f, ft_strlen(arg_str));
-	res_str_len = (write_str_len > f->width) ? write_str_len : f->width;
-	res_str = (char *)malloc(sizeof(char) *(res_str_len + 1));
-	if (res_str == NULL)
-		return (NULL);
-	ft_memset(res_str, ' ',res_str_len);
-	res_str[res_str_len] = '\0';
-	idx = (f->minus != 0) ? 0 : res_str_len - write_str_len;
-	ft_memcpy(&res_str[idx], arg_str, write_str_len);
-	return (res_str);
+	ft_memset(res, ' ',res_len);
+	res[res_len] = '\0';
+	idx = (f->minus != 0) ? 0 : res_len - write_len;
+	ft_memcpy(&res[idx], arg, write_len);
+	return (res);
 }

@@ -6,13 +6,13 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 22:52:41 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/22 19:36:37 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/22 19:51:14 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	init(va_list ap, t_printf_flag *f, long *n, int *minus)
+static void	init(va_list ap, t_printf_flag *f, long *n, int *minus)
 {
 	if (f->minus || f->precision_exist)
 		f->zero = 0;
@@ -23,7 +23,6 @@ static int	init(va_list ap, t_printf_flag *f, long *n, int *minus)
 		*n *= -1;
 		*minus = 1;
 	}
-	return (1);	
 }
 
 static size_t	get_write_pnum_len(t_printf_flag *f, size_t pnum_len)
@@ -82,8 +81,7 @@ char	*ft_printf_converter_int(t_printf_condition *c, t_printf_flag *f)
 	long n;
 	t_num_str num;
 
-	if (init(c->ap, f, &n, &num.minus) == -1)
-		return (NULL);	
+	init(c->ap, f, &n, &num.minus);
 	if (f->precision_exist && f->precision == 0 && n == 0)
 		num.pnum = ft_strdup("");
 	else

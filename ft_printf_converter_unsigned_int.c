@@ -6,22 +6,17 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 21:42:16 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/19 23:52:13 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/22 19:52:26 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	init(va_list ap, t_printf_flag *f, unsigned int *n)
+static void	init(va_list ap, t_printf_flag *f, unsigned int *n)
 {
-	if (f->zero && f->minus)
-		return (-1);
-	if (f->space)
-		return (-1);
-	if (f->precision_exist)
+	if (f->minus || f->precision_exist)
 		f->zero = 0;
 	*n = va_arg(ap,unsigned int);
-	return (1);	
 }
 
 static size_t	get_write_pnum_len(t_printf_flag *f, size_t pnum_len)
@@ -72,9 +67,12 @@ char	*ft_printf_converter_unsigned_int(t_printf_condition *c, t_printf_flag *f)
 	unsigned int n;
 	t_num_str num;
 
-	if (init(c->ap, f, &n) == -1)
-		return (NULL);	
-	if (!(num.pnum = ft_uitoa(n)))
+	init(c->ap, f, &n);
+	if (f->precision_exist && f->precision == 0 && n == 0)
+		num.pnum = ft_strdup("");
+	else
+		num.pnum = ft_uitoa(n);
+	if (num.pnum == NULL)
 		return (NULL);
 	num.pnum_len = ft_strlen(num.pnum);
 	num.write_pnum_len = get_write_pnum_len(f, num.pnum_len);

@@ -6,22 +6,21 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 22:09:54 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/20 22:13:34 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/22 20:37:09 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static int	init(va_list ap, t_printf_flag *f, unsigned int *n)
+static void	init(va_list ap, t_printf_flag *f, unsigned int *n, char **b)
 {
-	if (f->zero && f->minus)
-		return (-1);
-	if (f->space)
-		return (-1);
-	if (f->precision_exist)
+	if (f->minus || f->precision_exist)
 		f->zero = 0;
 	*n = va_arg(ap,unsigned int);
-	return (1);	
+	if (f->specifier == 'x')
+		*b = "0123456789abcdef";
+	else 
+		*b = "0123456789ABCDEF";
 }
 
 static size_t	get_write_pnum_len(t_printf_flag *f, size_t pnum_len)
@@ -73,13 +72,12 @@ char	*ft_printf_converter_hex(t_printf_condition *c, t_printf_flag *f)
 	t_num_str num;
 	char *base;
 
-	if (init(c->ap, f, &n) == -1)
-		return (NULL);	
-	if (f->specifier == 'x')
-		base = "0123456789abcdef";
-	else 
-		base = "0123456789ABCDEF";
-	if (!(num.pnum = ft_uitoa_base(n, base)))
+	init(c->ap, f, &n, &base);
+	if (f->precision_exist && f->precision == 0 && n == 0)
+		num.pnum = ft_strdup("");
+	else
+		num.pnum = ft_uitoa_base(n, base);
+	if (num.pnum == NULL)
 		return (NULL);
 	num.pnum_len = ft_strlen(num.pnum);
 	num.write_pnum_len = get_write_pnum_len(f, num.pnum_len);

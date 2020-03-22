@@ -6,36 +6,74 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 22:02:57 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/18 20:37:23 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/22 21:52:50 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_printf_converter_pointer(t_printf_condition *c, t_printf_flag *f)
+static char	*get_sub_pointer(t_printf_flag *f, void *p)
 {
-	char *res_str;
-	size_t res_str_len;
-	void *pointer;
-	char *pointer_str;
-	size_t pointer_str_len;
+	char *sub_pointer;
+	size_t len;
+	char *tmp;
 	size_t idx;
 
-	if (f->zero || f->space || f->precision_exist)
+	sub_pointer = ft_ultoa_base((size_t)p, "0123456789abcdef");
+	len = ft_strlen(sub_pointer);
+	if (f->precision_exist && f->precision > len)
+	{
+		tmp = sub_pointer;
+		if(!(sub_pointer = malloc(sizeof(char) * (f->precision + 1))))
+			return (NULL);
+		sub_pointer[f->precision] = '\0';
+		ft_memset(sub_pointer, '0', f->precision);
+		idx = f->precision - len;
+		ft_memcpy(&sub_pointer[idx], tmp, len);
+		free(tmp);
+	}
+	return (sub_pointer);
+}
+
+static char	*get_pointer(t_printf_condition *c, t_printf_flag *f)
+{
+	void *p;
+	char *sub_pointer;
+	char *pointer;
+	
+	p = va_arg(c->ap, void *);
+	if (p == NULL)
+	{
+		pointer = ft_strdup("(nil)");
+	}
+	else
+	{
+		if (!(sub_pointer = get_sub_pointer(f, p)))
+			return (NULL);
+		pointer = ft_strjoin("0x", sub_pointer);
+		free(sub_pointer);
+	}
+	return (pointer);
+}
+
+char	*ft_printf_converter_pointer(t_printf_condition *c, t_printf_flag *f)
+{
+	char *res;
+	size_t res_len;
+	char *pointer;
+	size_t pointer_len;
+	size_t idx;
+
+	if (!(pointer = get_pointer(c, f)))
 		return (NULL);
-	pointer = va_arg(c->ap, void *);
-	if(!(pointer_str = ft_ultoa_base((size_t)pointer, "0123456789abcdef")))
+	pointer_len = ft_strlen(pointer);
+	res_len = (f->width > pointer_len) ? f->width : pointer_len;
+	if(!(res = (char *)malloc(sizeof(char) *(res_len + 1))))
 		return (NULL);
-	pointer_str_len = ft_strlen(pointer_str);
-	res_str_len = pointer_str_len + 2;
-	res_str_len = (f->width > res_str_len) ? f->width : res_str_len;
-	if(!(res_str = (char *)malloc(sizeof(char) *(res_str_len + 1))))
-		return (NULL);
-	res_str[res_str_len] = '\0';
-	idx = (f->minus != 0) ? 2 : res_str_len - pointer_str_len;
-	ft_memset(res_str, ' ', res_str_len);
-	ft_memcpy(&res_str[idx], pointer_str, pointer_str_len);
-	ft_memcpy(&res_str[idx-2], "0x", 2);
-	free(pointer_str);
-	return (res_str);
+	res[res_len] = '\0';
+	idx = (f->minus != 0) ? 0 : res_len - pointer_len;
+	ft_memset(res, ' ', res_len);
+	ft_memcpy(&res[idx], pointer, pointer_len);
+	free(pointer);
+	return (res);
 }

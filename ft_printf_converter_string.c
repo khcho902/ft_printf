@@ -6,13 +6,13 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 16:15:39 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/22 18:33:23 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/22 18:41:03 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-size_t	get_write_len(t_printf_flag *f, size_t str_len)
+static size_t	get_write_len(t_printf_flag *f, size_t str_len)
 {
 	size_t len;
 

@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 20:40:46 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/23 17:22:24 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/23 19:36:24 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int     ft_set_flag(t_printf_flag *f, t_printf_condition *c, char specifier)
 {
 	const char      *format;
 	size_t          idx;
+	long		tmp;
 
 	init_flag(f, specifier);
 	format = c->format;
@@ -44,7 +45,13 @@ int     ft_set_flag(t_printf_flag *f, t_printf_condition *c, char specifier)
 	}
 	if (format[idx] == '*')
 	{
-		f->width = va_arg(c->ap, int);
+		tmp = va_arg(c->ap, int);
+		if (tmp < 0)
+		{
+			f->minus = 1;
+			tmp *= -1;
+		}
+		f->width = tmp;
 		idx++;
 	}
 	else
@@ -59,7 +66,11 @@ int     ft_set_flag(t_printf_flag *f, t_printf_condition *c, char specifier)
 		f->precision_exist = 1;
 		if (format[idx] == '*')
 		{
-			f->precision = va_arg(c->ap, int);
+			tmp = va_arg(c->ap, int);
+			if (tmp < 0)
+				f->precision_exist = 0;
+			else
+				f->precision = tmp;
 			idx++;
 		}
 		else

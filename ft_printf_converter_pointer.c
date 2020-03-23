@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 22:02:57 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/22 21:52:50 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/23 18:59:35 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ static char	*get_pointer(t_printf_condition *c, t_printf_flag *f)
 char	*ft_printf_converter_pointer(t_printf_condition *c, t_printf_flag *f)
 {
 	char *res;
-	size_t res_len;
 	char *pointer;
 	size_t pointer_len;
 	size_t idx;
@@ -67,12 +66,11 @@ char	*ft_printf_converter_pointer(t_printf_condition *c, t_printf_flag *f)
 	if (!(pointer = get_pointer(c, f)))
 		return (NULL);
 	pointer_len = ft_strlen(pointer);
-	res_len = (f->width > pointer_len) ? f->width : pointer_len;
-	if(!(res = (char *)malloc(sizeof(char) *(res_len + 1))))
+	f->res_len = (f->width > pointer_len) ? f->width : pointer_len;
+	if(!(res = (char *)malloc(sizeof(char) * f->res_len)))
 		return (NULL);
-	res[res_len] = '\0';
-	idx = (f->minus != 0) ? 0 : res_len - pointer_len;
-	ft_memset(res, ' ', res_len);
+	idx = (f->minus != 0) ? 0 : f->res_len - pointer_len;
+	ft_memset(res, ' ', f->res_len);
 	ft_memcpy(&res[idx], pointer, pointer_len);
 	free(pointer);
 	return (res);

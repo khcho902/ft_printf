@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 22:09:54 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/22 20:37:09 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/23 19:02:45 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ static void	set_res(t_printf_flag *f, t_num_str *num, char *res, size_t len)
 char	*ft_printf_converter_hex(t_printf_condition *c, t_printf_flag *f)
 {
 	char *res;
-	size_t res_len;
 	unsigned int n;
 	t_num_str num;
 	char *base;
@@ -81,12 +80,11 @@ char	*ft_printf_converter_hex(t_printf_condition *c, t_printf_flag *f)
 		return (NULL);
 	num.pnum_len = ft_strlen(num.pnum);
 	num.write_pnum_len = get_write_pnum_len(f, num.pnum_len);
-	res_len = get_res_len(f, num.write_pnum_len);
-	res = (char *)malloc(sizeof(char) * (res_len + 1));
+	f->res_len = get_res_len(f, num.write_pnum_len);
+	res = (char *)malloc(sizeof(char) * f->res_len);
 	if (res == NULL)
 		return (NULL);
-	res[res_len] = '\0';
-	set_res(f, &num, res, res_len);
+	set_res(f, &num, res, f->res_len);
 	free(num.pnum);
 	return (res);
 }

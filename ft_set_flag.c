@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 20:40:46 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/20 20:39:56 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/23 17:22:24 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void    init_flag(t_printf_flag *flag, char specifier)
 {
 	flag->specifier = specifier;
+	flag->res_len = 0;
 	flag->space = 0;
 	flag->zero = 0;
 	flag->minus = 0;

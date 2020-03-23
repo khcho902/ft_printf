@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:55:00 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/20 22:37:30 by kycho            ###   ########.fr       */
+/*   Updated: 2020/03/23 17:30:01 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct	s_printf_condition
 typedef struct	s_printf_flag
 {
 	char	specifier;
+	size_t	res_len;
 	int	space;
 	int	zero;
 	int	minus;
@@ -64,7 +65,6 @@ int	ft_isinset(char ch, const char *set);
 char	*ft_uitoa(unsigned int n);
 char	*ft_uitoa_base(unsigned int n, const char *base);
 char	*ft_ultoa_base(unsigned long n, const char *base);
-
-
+void	ft_putstr_n_fd(char *s, size_t n, int fd);
 
 #endif

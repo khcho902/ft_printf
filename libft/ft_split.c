@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 19:18:33 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/05 00:51:26 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/04 18:56:34 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static size_t	get_word_num(char const *s, char c)
 
 	cnt = 0;
 	idx = 0;
-	
 	while (s[idx] != '\0')
 	{
 		if (s[idx] != c)
@@ -44,7 +43,7 @@ static size_t	get_word_len(char const *s, char c)
 	return (len);
 }
 
-static int	memory_free(char **res, size_t n)
+static int		memory_free(char **res, size_t n)
 {
 	size_t idx;
 
@@ -57,13 +56,13 @@ static int	memory_free(char **res, size_t n)
 	return (1);
 }
 
-char	**ft_split(char const *s, char c)
+char			**ft_split(char const *s, char c)
 {
 	char	**res;
 	size_t	r_i;
 	size_t	s_i;
 	size_t	word_len;
-	
+
 	if (!(res = (char **)malloc(sizeof(char *) * (get_word_num(s, c) + 1))))
 		return (NULL);
 	r_i = 0;
@@ -73,7 +72,7 @@ char	**ft_split(char const *s, char c)
 		if (s[s_i] != c)
 		{
 			word_len = get_word_len(&s[s_i], c);
-			res[r_i] = (char *)malloc(sizeof(char)*(word_len + 1));
+			res[r_i] = (char *)malloc(sizeof(char) * (word_len + 1));
 			if (res[r_i] == NULL && memory_free(res, r_i))
 				return (0);
 			ft_strlcpy(res[r_i], &s[s_i], word_len + 1);

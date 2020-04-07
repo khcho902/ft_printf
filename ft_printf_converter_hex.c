@@ -6,26 +6,27 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 22:09:54 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/23 19:02:45 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/07 13:14:27 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	init(va_list ap, t_printf_flag *f, unsigned int *n, char **b)
+static void		init(va_list ap, t_printf_flag *f, unsigned int *n, char **b)
 {
 	if (f->minus || f->precision_exist)
 		f->zero = 0;
-	*n = va_arg(ap,unsigned int);
+	*n = va_arg(ap, unsigned int);
 	if (f->specifier == 'x')
 		*b = "0123456789abcdef";
-	else 
+	else
 		*b = "0123456789ABCDEF";
 }
 
 static size_t	get_write_pnum_len(t_printf_flag *f, size_t pnum_len)
 {
 	size_t write_pnum_len;
+
 	write_pnum_len = pnum_len;
 	if (f->precision > pnum_len)
 		write_pnum_len = f->precision;
@@ -35,14 +36,14 @@ static size_t	get_write_pnum_len(t_printf_flag *f, size_t pnum_len)
 static size_t	get_res_len(t_printf_flag *f, size_t write_pnum_len)
 {
 	size_t res_len;
+
 	res_len = write_pnum_len;
 	if (f->width > res_len)
 		res_len = f->width;
 	return (res_len);
 }
 
-
-static void	set_res(t_printf_flag *f, t_num_str *num, char *res, size_t len)
+static void		set_res(t_printf_flag *f, t_num_str *num, char *res, size_t len)
 {
 	size_t idx;
 
@@ -64,12 +65,13 @@ static void	set_res(t_printf_flag *f, t_num_str *num, char *res, size_t len)
 	}
 }
 
-char	*ft_printf_converter_hex(t_printf_condition *c, t_printf_flag *f)
+char			*ft_printf_converter_hex(
+									t_printf_condition *c, t_printf_flag *f)
 {
-	char *res;
-	unsigned int n;
-	t_num_str num;
-	char *base;
+	char			*res;
+	unsigned int	n;
+	t_num_str		num;
+	char			*base;
 
 	init(c->ap, f, &n, &base);
 	if (f->precision_exist && f->precision == 0 && n == 0)

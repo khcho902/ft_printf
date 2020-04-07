@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 23:15:32 by kycho             #+#    #+#             */
-/*   Updated: 2020/02/27 23:40:46 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/04 18:49:13 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	size_t idx;
-	int diff;
+	size_t	idx;
+	int		diff;
 
 	idx = 0;
 	while (idx < n)

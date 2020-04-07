@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/04 22:42:33 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/04 22:52:29 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/04 18:48:58 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 
 	if (!lst || !f || !del)
 		return (NULL);
-
 	if (!(new_first_lst = ft_lstnew(f(lst->content))))
 		return (NULL);
 	new_lst = new_first_lst;
-
 	while (lst->next)
 	{
 		lst = lst->next;

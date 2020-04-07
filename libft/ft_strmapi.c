@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 22:08:07 by kycho             #+#    #+#             */
-/*   Updated: 2020/02/29 22:45:43 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/04 18:51:47 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 	char	*res;
 	size_t	idx;
 	size_t	len;
-	
+
 	len = ft_strlen(s);
-	if(!(res = (char *)malloc(sizeof(char)*(len + 1))))
+	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	idx = 0;
 	while (idx < len)

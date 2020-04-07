@@ -6,13 +6,13 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 20:40:46 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/23 19:36:24 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/07 14:09:30 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void    init_flag(t_printf_flag *flag, char specifier)
+void	init_flag(t_printf_flag *flag, char specifier)
 {
 	flag->specifier = specifier;
 	flag->res_len = 0;
@@ -24,16 +24,16 @@ void    init_flag(t_printf_flag *flag, char specifier)
 	flag->precision = 0;
 }
 
-int     ft_set_flag(t_printf_flag *f, t_printf_condition *c, char specifier)
+int		ft_set_flag(t_printf_flag *f, t_printf_condition *c, char specifier)
 {
-	const char      *format;
-	size_t          idx;
+	const char	*format;
+	size_t		idx;
 	long		tmp;
 
 	init_flag(f, specifier);
 	format = c->format;
 	idx = 1;
-	while (format[idx] == ' '|| format[idx] == '-'|| format[idx] == '0')
+	while (format[idx] == ' ' || format[idx] == '-' || format[idx] == '0')
 	{
 		if (format[idx] == ' ')
 			f->space = 1;

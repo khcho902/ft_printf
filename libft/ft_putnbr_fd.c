@@ -6,12 +6,11 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/01 19:31:32 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/01 19:57:43 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/04 18:50:19 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
 
 void	ft_putnbr_fd(int n, int fd)
 {

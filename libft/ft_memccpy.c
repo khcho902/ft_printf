@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 23:34:34 by kycho             #+#    #+#             */
-/*   Updated: 2020/02/27 14:09:19 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/04 18:47:47 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
 	size_t idx;
-	
+
 	idx = 0;
 	while (idx < n)
 	{

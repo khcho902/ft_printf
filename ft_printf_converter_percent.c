@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 22:32:41 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/23 19:16:21 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/07 13:00:38 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_printf_converter_percent(t_printf_condition *c, t_printf_flag *f)
 	char *res;
 
 	if (c == NULL || f == NULL)
-		return (NULL);	
+		return (NULL);
 	f->res_len = 1;
 	res = (char *)malloc(sizeof(char) * f->res_len);
 	if (res == NULL)

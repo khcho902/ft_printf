@@ -6,13 +6,13 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/29 02:04:11 by kycho             #+#    #+#             */
-/*   Updated: 2020/02/29 02:05:12 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/04 18:53:03 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_tolower(int c)
 {
 	if (c >= 'A' && c <= 'Z')
-		return (c -'A' + 'a');
+		return (c - 'A' + 'a');
 	return (c);
 }

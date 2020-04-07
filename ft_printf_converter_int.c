@@ -6,18 +6,18 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 22:52:41 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/23 19:00:43 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/07 14:01:51 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	init(va_list ap, t_printf_flag *f, long *n, int *minus)
+static void		init(va_list ap, t_printf_flag *f, long *n, int *minus)
 {
 	if (f->minus || f->precision_exist)
 		f->zero = 0;
 	*minus = 0;
-	*n = va_arg(ap,int);
+	*n = va_arg(ap, int);
 	if (*n < 0)
 	{
 		*n *= -1;
@@ -28,6 +28,7 @@ static void	init(va_list ap, t_printf_flag *f, long *n, int *minus)
 static size_t	get_write_pnum_len(t_printf_flag *f, size_t pnum_len)
 {
 	size_t write_pnum_len;
+
 	write_pnum_len = pnum_len;
 	if (f->precision > pnum_len)
 		write_pnum_len = f->precision;
@@ -37,6 +38,7 @@ static size_t	get_write_pnum_len(t_printf_flag *f, size_t pnum_len)
 static size_t	get_res_len(t_printf_flag *f, size_t write_pnum_len, int minus)
 {
 	size_t res_len;
+
 	res_len = write_pnum_len;
 	if (minus || f->space)
 		res_len++;
@@ -45,8 +47,7 @@ static size_t	get_res_len(t_printf_flag *f, size_t write_pnum_len, int minus)
 	return (res_len);
 }
 
-
-static void	set_res(t_printf_flag *f, t_num_str *num, char *res, size_t len)
+static void		set_res(t_printf_flag *f, t_num_str *num, char *res, size_t len)
 {
 	size_t idx;
 
@@ -74,11 +75,12 @@ static void	set_res(t_printf_flag *f, t_num_str *num, char *res, size_t len)
 	}
 }
 
-char	*ft_printf_converter_int(t_printf_condition *c, t_printf_flag *f)
+char			*ft_printf_converter_int(
+								t_printf_condition *c, t_printf_flag *f)
 {
-	char *res;
-	long n;
-	t_num_str num;
+	char		*res;
+	long		n;
+	t_num_str	num;
 
 	init(c->ap, f, &n, &num.minus);
 	if (f->precision_exist && f->precision == 0 && n == 0)

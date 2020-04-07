@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 23:17:57 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/02 23:26:12 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/04 18:45:58 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,5 +19,4 @@ void	ft_lstiter(t_list *lst, void (*f)(void *))
 		f(lst->content);
 		lst = lst->next;
 	}
-
 }

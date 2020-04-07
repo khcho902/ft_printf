@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 22:02:57 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/23 18:59:35 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/07 13:10:51 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 static char	*get_sub_pointer(t_printf_flag *f, void *p)
 {
-	char *sub_pointer;
-	size_t len;
-	char *tmp;
-	size_t idx;
+	char	*sub_pointer;
+	size_t	len;
+	char	*tmp;
+	size_t	idx;
 
 	sub_pointer = ft_ultoa_base((size_t)p, "0123456789abcdef");
 	len = ft_strlen(sub_pointer);
 	if (f->precision_exist && f->precision > len)
 	{
 		tmp = sub_pointer;
-		if(!(sub_pointer = malloc(sizeof(char) * (f->precision + 1))))
+		if (!(sub_pointer = malloc(sizeof(char) * (f->precision + 1))))
 			return (NULL);
 		sub_pointer[f->precision] = '\0';
 		ft_memset(sub_pointer, '0', f->precision);
@@ -40,7 +40,7 @@ static char	*get_pointer(t_printf_condition *c, t_printf_flag *f)
 	void *p;
 	char *sub_pointer;
 	char *pointer;
-	
+
 	p = va_arg(c->ap, void *);
 	if (p == NULL)
 	{
@@ -56,18 +56,19 @@ static char	*get_pointer(t_printf_condition *c, t_printf_flag *f)
 	return (pointer);
 }
 
-char	*ft_printf_converter_pointer(t_printf_condition *c, t_printf_flag *f)
+char		*ft_printf_converter_pointer(
+									t_printf_condition *c, t_printf_flag *f)
 {
-	char *res;
-	char *pointer;
-	size_t pointer_len;
-	size_t idx;
+	char	*res;
+	char	*pointer;
+	size_t	pointer_len;
+	size_t	idx;
 
 	if (!(pointer = get_pointer(c, f)))
 		return (NULL);
 	pointer_len = ft_strlen(pointer);
 	f->res_len = (f->width > pointer_len) ? f->width : pointer_len;
-	if(!(res = (char *)malloc(sizeof(char) * f->res_len)))
+	if (!(res = (char *)malloc(sizeof(char) * f->res_len)))
 		return (NULL);
 	idx = (f->minus != 0) ? 0 : f->res_len - pointer_len;
 	ft_memset(res, ' ', f->res_len);

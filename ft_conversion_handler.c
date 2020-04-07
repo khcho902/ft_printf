@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 21:03:31 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/23 19:06:18 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/07 12:56:13 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,27 +26,27 @@ void	*get_converter(char specifier)
 {
 	if (specifier == 'c')
 		return (&ft_printf_converter_char);
-	else if(specifier == 's')
+	else if (specifier == 's')
 		return (&ft_printf_converter_string);
-	else if(specifier == 'p')
+	else if (specifier == 'p')
 		return (&ft_printf_converter_pointer);
-	else if(specifier == 'd' || specifier == 'i')
+	else if (specifier == 'd' || specifier == 'i')
 		return (&ft_printf_converter_int);
-	else if(specifier == 'u')
+	else if (specifier == 'u')
 		return (&ft_printf_converter_unsigned_int);
-	else if(specifier == 'x' || specifier == 'X')
+	else if (specifier == 'x' || specifier == 'X')
 		return (&ft_printf_converter_hex);
-	else if(specifier == '%')
+	else if (specifier == '%')
 		return (&ft_printf_converter_percent);
 	return (NULL);
 }
 
-int	ft_conversion_handler(t_printf_condition *condition, char *specifiers)
+int		ft_conversion_handler(t_printf_condition *condition, char *specifiers)
 {
-	char		specifier;
+	char			specifier;
 	t_printf_flag	flag;
-	char		*converted_res;
-	char		*(*converter)(t_printf_condition *, t_printf_flag *);
+	char			*converted_res;
+	char			*(*converter)(t_printf_condition *, t_printf_flag *);
 
 	if (!(specifier = ft_get_specifier(condition->format, specifiers)))
 		return (-1);
@@ -55,7 +55,7 @@ int	ft_conversion_handler(t_printf_condition *condition, char *specifiers)
 	if (!(converter = get_converter(specifier)))
 		return (-1);
 	if (!(converted_res = converter(condition, &flag)))
-		return(-1);	
+		return (-1);
 	ft_putstr_n_fd(converted_res, flag.res_len, condition->fd);
 	condition->format += get_conversion_len(condition->format, specifier);
 	free(converted_res);

@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 16:15:39 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/23 18:19:59 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/07 13:08:32 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@ static size_t	get_write_len(t_printf_flag *f, size_t str_len)
 	return (len);
 }
 
-char	*ft_printf_converter_string(t_printf_condition *c, t_printf_flag *f)
+char			*ft_printf_converter_string(
+									t_printf_condition *c, t_printf_flag *f)
 {
-	char *arg;
-	char *res;
-	size_t write_len;
-	size_t idx;
+	char	*arg;
+	char	*res;
+	size_t	write_len;
+	size_t	idx;
 
 	if (!(arg = va_arg(c->ap, char *)))
 	{
@@ -40,7 +41,7 @@ char	*ft_printf_converter_string(t_printf_condition *c, t_printf_flag *f)
 	f->res_len = (write_len > f->width) ? write_len : f->width;
 	if (!(res = (char *)malloc(sizeof(char) * f->res_len)))
 		return (NULL);
-	ft_memset(res, ' ',f->res_len);
+	ft_memset(res, ' ', f->res_len);
 	idx = (f->minus != 0) ? 0 : f->res_len - write_len;
 	ft_memcpy(&res[idx], arg, write_len);
 	return (res);

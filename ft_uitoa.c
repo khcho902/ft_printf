@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 22:55:26 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/18 22:57:23 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/07 14:07:38 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ static size_t	get_n_len(unsigned int n)
 	return (len);
 }
 
-char	*ft_uitoa(unsigned int n)
+char			*ft_uitoa(unsigned int n)
 {
 	char	*res;
 	size_t	len;
-	
+
 	len = get_n_len(n);
-	if(!(res = (char *)malloc(sizeof(char)*(len + 1))))
+	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	res[0] = '0';
 	res[len] = '\0';

@@ -6,13 +6,13 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 20:18:33 by kycho             #+#    #+#             */
-/*   Updated: 2020/03/15 20:21:01 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/07 12:57:48 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int     ft_isinset(char ch, const char *set)
+int	ft_isinset(char ch, const char *set)
 {
 	size_t idx;
 

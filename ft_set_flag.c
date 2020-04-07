@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 20:40:46 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/07 14:09:30 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/07 18:30:39 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,26 +24,30 @@ void	init_flag(t_printf_flag *flag, char specifier)
 	flag->precision = 0;
 }
 
-int		ft_set_flag(t_printf_flag *f, t_printf_condition *c, char specifier)
+void	set_front_flag(t_printf_flag *f, t_printf_condition *c, size_t *idx)
+{
+	const char *format;
+
+	format = c->format;
+	while (format[*idx] == ' ' || format[*idx] == '-' || format[*idx] == '0')
+	{
+		if (format[*idx] == ' ')
+			f->space = 1;
+		if (format[*idx] == '0')
+			f->zero = 1;
+		if (format[*idx] == '-')
+			f->minus = 1;
+		(*idx)++;
+	}
+}
+
+void	set_width_flag(t_printf_flag *f, t_printf_condition *c, size_t *idx)
 {
 	const char	*format;
-	size_t		idx;
 	long		tmp;
 
-	init_flag(f, specifier);
 	format = c->format;
-	idx = 1;
-	while (format[idx] == ' ' || format[idx] == '-' || format[idx] == '0')
-	{
-		if (format[idx] == ' ')
-			f->space = 1;
-		if (format[idx] == '0')
-			f->zero = 1;
-		if (format[idx] == '-')
-			f->minus = 1;
-		idx++;
-	}
-	if (format[idx] == '*')
+	if (format[*idx] == '*')
 	{
 		tmp = va_arg(c->ap, int);
 		if (tmp < 0)
@@ -52,35 +56,54 @@ int		ft_set_flag(t_printf_flag *f, t_printf_condition *c, char specifier)
 			tmp *= -1;
 		}
 		f->width = tmp;
-		idx++;
+		(*idx)++;
 	}
 	else
 	{
-		f->width = ft_atoi(&format[idx]);
-		while (ft_isdigit(format[idx]))
-			idx++;
+		f->width = ft_atoi(&format[*idx]);
+		while (ft_isdigit(format[*idx]))
+			(*idx)++;
 	}
-	if (format[idx] == '.')
+}
+
+void	set_precision_flag(t_printf_flag *f, t_printf_condition *c, size_t *idx)
+{
+	const char	*format;
+	long		tmp;
+
+	format = c->format;
+	if (format[*idx] == '.')
 	{
-		idx++;
+		(*idx)++;
 		f->precision_exist = 1;
-		if (format[idx] == '*')
+		if (format[*idx] == '*')
 		{
 			tmp = va_arg(c->ap, int);
 			if (tmp < 0)
 				f->precision_exist = 0;
 			else
 				f->precision = tmp;
-			idx++;
+			(*idx)++;
 		}
 		else
 		{
-			f->precision = ft_atoi(&format[idx]);
-			while (ft_isdigit(format[idx]))
-				idx++;
+			f->precision = ft_atoi(&format[*idx]);
+			while (ft_isdigit(format[*idx]))
+				(*idx)++;
 		}
 	}
-	if (format[idx] != specifier)
+}
+
+int		ft_set_flag(t_printf_flag *f, t_printf_condition *c, char specifier)
+{
+	size_t idx;
+
+	idx = 1;
+	init_flag(f, specifier);
+	set_front_flag(f, c, &idx);
+	set_width_flag(f, c, &idx);
+	set_precision_flag(f, c, &idx);
+	if ((c->format)[idx] != specifier)
 		return (-1);
 	return (1);
 }

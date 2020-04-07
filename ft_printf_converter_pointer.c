@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 22:02:57 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/07 13:10:51 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/08 04:13:50 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,21 @@ static char	*get_pointer(t_printf_condition *c, t_printf_flag *f)
 	char *pointer;
 
 	p = va_arg(c->ap, void *);
+	/*
 	if (p == NULL)
 	{
 		pointer = ft_strdup("(nil)");
 	}
 	else
 	{
+	*/
 		if (!(sub_pointer = get_sub_pointer(f, p)))
 			return (NULL);
 		pointer = ft_strjoin("0x", sub_pointer);
 		free(sub_pointer);
+	/*
 	}
+	*/
 	return (pointer);
 }
 

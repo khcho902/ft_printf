@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/17 22:02:57 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/09 00:10:06 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/09 00:50:11 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,14 @@ int			ft_printf_converter_pointer(
 	size_t	idx;
 
 	if (!(pointer = get_pointer(c, f)))
-		return (-1);
+		return (ERROR);
 	pointer_len = ft_strlen(pointer);
 	r->res_len = (f->width > pointer_len) ? f->width : pointer_len;
 	if (!(r->res = (char *)malloc(sizeof(char) * r->res_len)))
-		return (-1);
+		return (ERROR);
 	idx = (f->minus != 0) ? 0 : r->res_len - pointer_len;
 	ft_memset(r->res, ' ', r->res_len);
 	ft_memcpy(&r->res[idx], pointer, pointer_len);
 	free(pointer);
-	return (1);
+	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 02:05:43 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/08 23:51:54 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/09 00:49:08 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ int	ft_printf_converter_char(
 	r->res_len = (f->width != 0) ? f->width : 1;
 	r->res = (char *)malloc(sizeof(char) * r->res_len);
 	if (r->res == NULL)
-		return (-1);
+		return (ERROR);
 	ft_memset(r->res, ' ', r->res_len);
 	idx = (f->minus != 0) ? 0 : r->res_len - 1;
 	r->res[idx] = va_arg(c->ap, int);
-	return (1);
+	return (SUCCESS);
 }

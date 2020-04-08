@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 22:32:41 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/09 00:24:58 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/09 00:52:04 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ int				ft_printf_converter_percent(
 					t_printf_condition *c, t_printf_flag *f, t_printf_res *r)
 {
 	if (c == NULL)
-		return (-1);
+		return (ERROR);
 	init(f);
 	r->res_len = get_res_len(f);
 	r->res = (char *)malloc(sizeof(char) * r->res_len);
 	if (r->res == NULL)
-		return (-1);
+		return (ERROR);
 	set_res(f, r);
-	return (1);
+	return (SUCCESS);
 }

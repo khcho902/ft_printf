@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/15 20:40:46 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/08 23:50:22 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/09 00:48:28 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,6 @@ int		ft_set_flag(t_printf_flag *f, t_printf_condition *c, char specifier)
 	set_width_flag(f, c, &idx);
 	set_precision_flag(f, c, &idx);
 	if ((c->format)[idx] != specifier)
-		return (-1);
-	return (1);
+		return (ERROR);
+	return (SUCCESS);
 }

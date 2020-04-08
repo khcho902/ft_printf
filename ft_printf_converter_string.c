@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 16:15:39 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/08 23:17:59 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/09 00:49:43 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int				ft_printf_converter_string(
 	write_len = get_write_len(f, ft_strlen(arg));
 	r->res_len = get_res_len(f, write_len);
 	if (!(r->res = (char *)malloc(sizeof(char) * r->res_len)))
-		return (-1);
+		return (ERROR);
 	set_res(f, r, arg, write_len);
-	return (1);
+	return (SUCCESS);
 }

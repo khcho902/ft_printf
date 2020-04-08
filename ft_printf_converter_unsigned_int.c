@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 21:42:16 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/08 23:58:07 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/09 00:51:19 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ int				ft_printf_converter_unsigned_int(
 	else
 		num.pnum = ft_uitoa(n);
 	if (num.pnum == NULL)
-		return (-1);
+		return (ERROR);
 	num.pnum_len = ft_strlen(num.pnum);
 	num.write_pnum_len = get_write_pnum_len(f, num.pnum_len);
 	r->res_len = get_res_len(f, num.write_pnum_len);
 	r->res = (char *)malloc(sizeof(char) * r->res_len);
 	if (r->res == NULL)
-		return (-1);
+		return (ERROR);
 	set_res(f, r, &num);
 	free(num.pnum);
-	return (1);
+	return (SUCCESS);
 }

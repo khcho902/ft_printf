@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:55:00 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/09 00:39:59 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/09 03:06:40 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,15 @@ typedef struct	s_num_str
 	size_t		pnum_len;
 	size_t		write_pnum_len;
 }				t_num_str;
+
+typedef struct	s_printf_content
+{
+	char		*prefix;
+	size_t		prefix_len;
+	char		*content;
+	size_t		content_len;
+	size_t		must_content_len;
+}				t_printf_content;
 
 typedef struct	s_printf_res
 {

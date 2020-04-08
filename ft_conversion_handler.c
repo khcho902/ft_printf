@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 21:03:31 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/07 12:56:13 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/09 00:33:39 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ int		ft_conversion_handler(t_printf_condition *condition, char *specifiers)
 {
 	char			specifier;
 	t_printf_flag	flag;
-	char			*converted_res;
-	char			*(*converter)(t_printf_condition *, t_printf_flag *);
+	t_printf_res	result;
+	t_converter		converter;
 
 	if (!(specifier = ft_get_specifier(condition->format, specifiers)))
 		return (-1);
@@ -54,10 +54,10 @@ int		ft_conversion_handler(t_printf_condition *condition, char *specifiers)
 		return (-1);
 	if (!(converter = get_converter(specifier)))
 		return (-1);
-	if (!(converted_res = converter(condition, &flag)))
+	if (converter(condition, &flag, &result) == -1)
 		return (-1);
-	ft_putstr_n_fd(converted_res, flag.res_len, condition->fd);
+	write(condition->fd, result.res, result.res_len);
 	condition->format += get_conversion_len(condition->format, specifier);
-	free(converted_res);
-	return (flag.res_len);
+	free(result.res);
+	return (result.res_len);
 }

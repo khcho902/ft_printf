@@ -19,7 +19,6 @@ SRCS = ./ft_printf.c \
        ./ft_ultoa_base.c \
        ./ft_uitoa_base.c \
        ./ft_uitoa.c \
-       ./ft_putstr_n_fd.c
 
 OBJS = $(SRCS:.c=.o)
 

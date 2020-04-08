@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 21:42:16 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/07 13:17:18 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/08 23:58:07 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,32 +39,31 @@ static size_t	get_res_len(t_printf_flag *f, size_t write_pnum_len)
 	return (res_len);
 }
 
-static void		set_res(t_printf_flag *f, t_num_str *num, char *res, size_t len)
+static void		set_res(t_printf_flag *f, t_printf_res *r, t_num_str *num)
 {
 	size_t idx;
 
 	if (f->zero)
 	{
-		ft_memset(res, '0', len);
-		idx = len - num->pnum_len;
-		ft_memcpy(&res[idx], num->pnum, num->pnum_len);
+		ft_memset(r->res, '0', r->res_len);
+		idx = r->res_len - num->pnum_len;
+		ft_memcpy(&r->res[idx], num->pnum, num->pnum_len);
 	}
 	else
 	{
-		ft_memset(res, ' ', len);
-		idx = len - num->write_pnum_len;
+		ft_memset(r->res, ' ', r->res_len);
+		idx = r->res_len - num->write_pnum_len;
 		if (f->minus)
 			idx = 0;
-		ft_memset(&res[idx], '0', num->write_pnum_len);
+		ft_memset(&r->res[idx], '0', num->write_pnum_len);
 		idx = idx + num->write_pnum_len - num->pnum_len;
-		ft_memcpy(&res[idx], num->pnum, num->pnum_len);
+		ft_memcpy(&r->res[idx], num->pnum, num->pnum_len);
 	}
 }
 
-char			*ft_printf_converter_unsigned_int(
-									t_printf_condition *c, t_printf_flag *f)
+int				ft_printf_converter_unsigned_int(
+					t_printf_condition *c, t_printf_flag *f, t_printf_res *r)
 {
-	char			*res;
 	unsigned int	n;
 	t_num_str		num;
 
@@ -74,14 +73,14 @@ char			*ft_printf_converter_unsigned_int(
 	else
 		num.pnum = ft_uitoa(n);
 	if (num.pnum == NULL)
-		return (NULL);
+		return (-1);
 	num.pnum_len = ft_strlen(num.pnum);
 	num.write_pnum_len = get_write_pnum_len(f, num.pnum_len);
-	f->res_len = get_res_len(f, num.write_pnum_len);
-	res = (char *)malloc(sizeof(char) * f->res_len);
-	if (res == NULL)
-		return (NULL);
-	set_res(f, &num, res, f->res_len);
+	r->res_len = get_res_len(f, num.write_pnum_len);
+	r->res = (char *)malloc(sizeof(char) * r->res_len);
+	if (r->res == NULL)
+		return (-1);
+	set_res(f, r, &num);
 	free(num.pnum);
-	return (res);
+	return (1);
 }

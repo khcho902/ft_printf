@@ -6,13 +6,13 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 16:15:39 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/08 04:05:27 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/08 23:17:59 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void	init(va_list ap, t_printf_flag *f, char **arg)
+static void		init(va_list ap, t_printf_flag *f, char **arg)
 {
 	if (f->minus)
 		f->zero = 0;
@@ -32,7 +32,7 @@ static size_t	get_write_len(t_printf_flag *f, size_t str_len)
 	return (len);
 }
 
-static size_t get_res_len(t_printf_flag *f, size_t write_len)
+static size_t	get_res_len(t_printf_flag *f, size_t write_len)
 {
 	size_t res_len;
 
@@ -40,36 +40,30 @@ static size_t get_res_len(t_printf_flag *f, size_t write_len)
 	return (res_len);
 }
 
-static void set_res(t_printf_flag *f,const char *arg, char *res,size_t write_len)
+static void		set_res(
+		t_printf_flag *f, t_printf_res *r, const char *arg, size_t write_len)
 {
 	size_t idx;
 
 	if (f->zero)
-		ft_memset(res, '0', f->res_len);
+		ft_memset(r->res, '0', r->res_len);
 	else
-		ft_memset(res, ' ', f->res_len);
-	idx = (f->minus != 0) ? 0 : f->res_len - write_len;
-	ft_memcpy(&res[idx], arg, write_len);
+		ft_memset(r->res, ' ', r->res_len);
+	idx = (f->minus != 0) ? 0 : r->res_len - write_len;
+	ft_memcpy(&r->res[idx], arg, write_len);
 }
 
-char			*ft_printf_converter_string(
-									t_printf_condition *c, t_printf_flag *f)
+int				ft_printf_converter_string(
+					t_printf_condition *c, t_printf_flag *f, t_printf_res *r)
 {
 	char	*arg;
-	char	*res;
 	size_t	write_len;
-//	size_t	idx;
 
 	init(c->ap, f, &arg);
 	write_len = get_write_len(f, ft_strlen(arg));
-	f->res_len = get_res_len(f, write_len);
-	if (!(res = (char *)malloc(sizeof(char) * f->res_len)))
-		return (NULL);
-	set_res(f,arg, res, write_len);
-/*
-	ft_memset(res, ' ', f->res_len);
-	idx = (f->minus != 0) ? 0 : f->res_len - write_len;
-	ft_memcpy(&res[idx], arg, write_len);
-*/
-	return (res);
+	r->res_len = get_res_len(f, write_len);
+	if (!(r->res = (char *)malloc(sizeof(char) * r->res_len)))
+		return (-1);
+	set_res(f, r, arg, write_len);
+	return (1);
 }

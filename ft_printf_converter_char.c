@@ -6,23 +6,23 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 02:05:43 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/07 13:00:56 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/08 23:51:54 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-char	*ft_printf_converter_char(t_printf_condition *c, t_printf_flag *f)
+int	ft_printf_converter_char(
+				t_printf_condition *c, t_printf_flag *f, t_printf_res *r)
 {
-	char	*res;
 	size_t	idx;
 
-	f->res_len = (f->width != 0) ? f->width : 1;
-	res = (char *)malloc(sizeof(char) * f->res_len);
-	if (res == NULL)
-		return (NULL);
-	ft_memset(res, ' ', f->res_len);
-	idx = (f->minus != 0) ? 0 : f->res_len - 1;
-	res[idx] = va_arg(c->ap, int);
-	return (res);
+	r->res_len = (f->width != 0) ? f->width : 1;
+	r->res = (char *)malloc(sizeof(char) * r->res_len);
+	if (r->res == NULL)
+		return (-1);
+	ft_memset(r->res, ' ', r->res_len);
+	idx = (f->minus != 0) ? 0 : r->res_len - 1;
+	r->res[idx] = va_arg(c->ap, int);
+	return (1);
 }

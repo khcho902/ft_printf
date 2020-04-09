@@ -6,11 +6,17 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 22:52:41 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/09 18:25:28 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/09 18:45:00 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+
+static void		adjust_flag(t_printf_flag *f)
+{	
+	if (f->minus || f->precision_exist)
+		f->zero = 0;
+}
 
 static int		set_content(va_list ap, t_printf_flag *f, t_printf_content *pc)
 {
@@ -39,22 +45,13 @@ static int		set_content(va_list ap, t_printf_flag *f, t_printf_content *pc)
 	return (SUCCESS);
 }
 
-static size_t	get_res_len(t_printf_flag *f, t_printf_content *pc)
-{
-	size_t res_len;
-
-	res_len = pc->must_content_len;
-	res_len += pc->prefix_len;
-	if (f->width > res_len)
-		res_len = f->width;
-	return (res_len);
-}
-
 static int		set_res(t_printf_flag *f, t_printf_res *r, t_printf_content *pc)
 {
 	size_t idx;
 
-	r->res_len = get_res_len(f, pc);
+	r->res_len = pc->prefix_len + pc->must_content_len;
+	if (f->width > r->res_len)
+		r->res_len = f->width;
 	if (!(r->res = (char *)malloc(sizeof(char) * r->res_len)))
 		return (ERROR);
 	if (f->zero)
@@ -80,8 +77,7 @@ int				ft_printf_converter_int(
 {
 	t_printf_content	pc;
 
-	if (f->minus || f->precision_exist)
-		f->zero = 0;
+	adjust_flag(f);
 	if (set_content(c->ap, f, &pc) == ERROR)
 		return (ERROR);
 	if (set_res(f, r, &pc) == ERROR)

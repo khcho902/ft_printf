@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 22:52:41 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/09 18:45:00 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/10 01:26:42 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int		set_res(t_printf_flag *f, t_printf_res *r, t_printf_content *pc)
 	else
 	{
 		ft_memset(r->res, ' ', r->res_len);
-		idx = f->minus ? pc->prefix_len : r->res_len - pc->must_content_len;
+		idx = (f->minus) ? pc->prefix_len : r->res_len - pc->must_content_len;
 		ft_memcpy(&r->res[idx - pc->prefix_len], pc->prefix, pc->prefix_len);
 		ft_memset(&r->res[idx], '0', pc->must_content_len);
 		idx = idx + pc->must_content_len - pc->content_len;

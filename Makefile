@@ -16,9 +16,10 @@ SRCS = ./ft_printf.c \
        ./ft_printf_converter_hex.c \
        ./ft_printf_converter_percent.c \
        ./ft_isinset.c \
+       ./ft_uitoa.c \
        ./ft_ultoa_base.c \
        ./ft_uitoa_base.c \
-       ./ft_uitoa.c \
+	   ./ft_sizet_max.c \
 
 OBJS = $(SRCS:.c=.o)
 

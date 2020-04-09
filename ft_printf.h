@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/12 16:55:00 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/09 03:06:40 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/10 03:22:56 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ int				ft_isinset(char ch, const char *set);
 char			*ft_uitoa(unsigned int n);
 char			*ft_uitoa_base(unsigned int n, const char *base);
 char			*ft_ultoa_base(unsigned long n, const char *base);
+size_t			ft_sizet_max(size_t x, size_t y);
 
 #endif

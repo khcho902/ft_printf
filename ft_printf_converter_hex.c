@@ -6,14 +6,14 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 22:09:54 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/10 02:55:19 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/10 03:33:04 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 static void		adjust_flag(t_printf_flag *f)
-{	
+{
 	if (f->minus || f->precision_exist)
 		f->zero = 0;
 }
@@ -22,7 +22,7 @@ static int		set_content(va_list ap, t_printf_flag *f, t_printf_content *pc)
 {
 	unsigned int	n;
 	char			*base;
-	
+
 	n = va_arg(ap, unsigned int);
 	if (f->specifier == 'x')
 		base = "0123456789abcdef";
@@ -35,9 +35,7 @@ static int		set_content(va_list ap, t_printf_flag *f, t_printf_content *pc)
 	if (pc->content == NULL)
 		return (ERROR);
 	pc->content_len = ft_strlen(pc->content);
-	pc->must_content_len = pc->content_len;
-	if (f->precision > pc->content_len)
-		pc->must_content_len = f->precision;
+	pc->must_content_len = ft_sizet_max(f->precision, pc->content_len);
 	return (SUCCESS);
 }
 
@@ -45,9 +43,7 @@ static int		set_res(t_printf_flag *f, t_printf_res *r, t_printf_content *pc)
 {
 	size_t idx;
 
-	r->res_len = pc->must_content_len;
-	if (f->width > r->res_len)
-		r->res_len = f->width;
+	r->res_len = ft_sizet_max(f->width, pc->must_content_len);
 	if (!(r->res = (char *)malloc(sizeof(char) * r->res_len)))
 		return (ERROR);
 	if (f->zero)
@@ -74,7 +70,6 @@ int				ft_printf_converter_hex(
 	adjust_flag(f);
 	if (set_content(c->ap, f, &pc) == ERROR)
 		return (ERROR);
-	
 	if (set_res(f, r, &pc) == ERROR)
 		return (ERROR);
 	free(pc.content);

@@ -6,14 +6,14 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 22:52:41 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/10 01:26:42 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/10 03:35:19 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 static void		adjust_flag(t_printf_flag *f)
-{	
+{
 	if (f->minus || f->precision_exist)
 		f->zero = 0;
 }
@@ -39,9 +39,7 @@ static int		set_content(va_list ap, t_printf_flag *f, t_printf_content *pc)
 	if (pc->content == NULL)
 		return (ERROR);
 	pc->content_len = ft_strlen(pc->content);
-	pc->must_content_len = pc->content_len;
-	if (f->precision > pc->content_len)
-		pc->must_content_len = f->precision;
+	pc->must_content_len = ft_sizet_max(f->precision, pc->content_len);
 	return (SUCCESS);
 }
 
@@ -49,9 +47,7 @@ static int		set_res(t_printf_flag *f, t_printf_res *r, t_printf_content *pc)
 {
 	size_t idx;
 
-	r->res_len = pc->prefix_len + pc->must_content_len;
-	if (f->width > r->res_len)
-		r->res_len = f->width;
+	r->res_len = ft_sizet_max(f->width, pc->prefix_len + pc->must_content_len);
 	if (!(r->res = (char *)malloc(sizeof(char) * r->res_len)))
 		return (ERROR);
 	if (f->zero)

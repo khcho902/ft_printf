@@ -6,86 +6,77 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 22:09:54 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/09 00:51:43 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/10 02:55:19 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void		init(va_list ap, t_printf_flag *f, unsigned int *n, char **b)
-{
+static void		adjust_flag(t_printf_flag *f)
+{	
 	if (f->minus || f->precision_exist)
 		f->zero = 0;
-	*n = va_arg(ap, unsigned int);
+}
+
+static int		set_content(va_list ap, t_printf_flag *f, t_printf_content *pc)
+{
+	unsigned int	n;
+	char			*base;
+	
+	n = va_arg(ap, unsigned int);
 	if (f->specifier == 'x')
-		*b = "0123456789abcdef";
+		base = "0123456789abcdef";
 	else
-		*b = "0123456789ABCDEF";
+		base = "0123456789ABCDEF";
+	if (f->precision_exist && f->precision == 0 && n == 0)
+		pc->content = ft_strdup("");
+	else
+		pc->content = ft_uitoa_base(n, base);
+	if (pc->content == NULL)
+		return (ERROR);
+	pc->content_len = ft_strlen(pc->content);
+	pc->must_content_len = pc->content_len;
+	if (f->precision > pc->content_len)
+		pc->must_content_len = f->precision;
+	return (SUCCESS);
 }
 
-static size_t	get_write_pnum_len(t_printf_flag *f, size_t pnum_len)
-{
-	size_t write_pnum_len;
-
-	write_pnum_len = pnum_len;
-	if (f->precision > pnum_len)
-		write_pnum_len = f->precision;
-	return (write_pnum_len);
-}
-
-static size_t	get_res_len(t_printf_flag *f, size_t write_pnum_len)
-{
-	size_t res_len;
-
-	res_len = write_pnum_len;
-	if (f->width > res_len)
-		res_len = f->width;
-	return (res_len);
-}
-
-static void		set_res(t_printf_flag *f, t_printf_res *r, t_num_str *num)
+static int		set_res(t_printf_flag *f, t_printf_res *r, t_printf_content *pc)
 {
 	size_t idx;
 
+	r->res_len = pc->must_content_len;
+	if (f->width > r->res_len)
+		r->res_len = f->width;
+	if (!(r->res = (char *)malloc(sizeof(char) * r->res_len)))
+		return (ERROR);
 	if (f->zero)
 	{
 		ft_memset(r->res, '0', r->res_len);
-		idx = r->res_len - num->pnum_len;
-		ft_memcpy(&r->res[idx], num->pnum, num->pnum_len);
+		idx = r->res_len - pc->content_len;
 	}
 	else
 	{
 		ft_memset(r->res, ' ', r->res_len);
-		idx = r->res_len - num->write_pnum_len;
-		if (f->minus)
-			idx = 0;
-		ft_memset(&r->res[idx], '0', num->write_pnum_len);
-		idx = idx + num->write_pnum_len - num->pnum_len;
-		ft_memcpy(&r->res[idx], num->pnum, num->pnum_len);
+		idx = (f->minus) ? 0 : r->res_len - pc->must_content_len;
+		ft_memset(&r->res[idx], '0', pc->must_content_len);
+		idx = idx + pc->must_content_len - pc->content_len;
 	}
+	ft_memcpy(&r->res[idx], pc->content, pc->content_len);
+	return (SUCCESS);
 }
 
 int				ft_printf_converter_hex(
 					t_printf_condition *c, t_printf_flag *f, t_printf_res *r)
 {
-	unsigned int	n;
-	t_num_str		num;
-	char			*base;
+	t_printf_content pc;
 
-	init(c->ap, f, &n, &base);
-	if (f->precision_exist && f->precision == 0 && n == 0)
-		num.pnum = ft_strdup("");
-	else
-		num.pnum = ft_uitoa_base(n, base);
-	if (num.pnum == NULL)
+	adjust_flag(f);
+	if (set_content(c->ap, f, &pc) == ERROR)
 		return (ERROR);
-	num.pnum_len = ft_strlen(num.pnum);
-	num.write_pnum_len = get_write_pnum_len(f, num.pnum_len);
-	r->res_len = get_res_len(f, num.write_pnum_len);
-	r->res = (char *)malloc(sizeof(char) * r->res_len);
-	if (r->res == NULL)
+	
+	if (set_res(f, r, &pc) == ERROR)
 		return (ERROR);
-	set_res(f, r, &num);
-	free(num.pnum);
+	free(pc.content);
 	return (SUCCESS);
 }

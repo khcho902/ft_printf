@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/18 22:52:41 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/09 04:56:55 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/09 18:25:28 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,8 @@ static int		set_res(t_printf_flag *f, t_printf_res *r, t_printf_content *pc)
 	if (f->zero)
 	{
 		ft_memset(r->res, '0', r->res_len);
-		idx = r->res_len - pc->content_len;
-		ft_memcpy(&r->res[idx], pc->content, pc->content_len);
 		ft_memcpy(&r->res[0], pc->prefix, pc->prefix_len);
+		idx = r->res_len - pc->content_len;
 	}
 	else
 	{
@@ -71,8 +70,8 @@ static int		set_res(t_printf_flag *f, t_printf_res *r, t_printf_content *pc)
 		ft_memcpy(&r->res[idx - pc->prefix_len], pc->prefix, pc->prefix_len);
 		ft_memset(&r->res[idx], '0', pc->must_content_len);
 		idx = idx + pc->must_content_len - pc->content_len;
-		ft_memcpy(&r->res[idx], pc->content, pc->content_len);
 	}
+	ft_memcpy(&r->res[idx], pc->content, pc->content_len);
 	return (SUCCESS);
 }
 
@@ -80,7 +79,7 @@ int				ft_printf_converter_int(
 					t_printf_condition *c, t_printf_flag *f, t_printf_res *r)
 {
 	t_printf_content	pc;
-	
+
 	if (f->minus || f->precision_exist)
 		f->zero = 0;
 	if (set_content(c->ap, f, &pc) == ERROR)

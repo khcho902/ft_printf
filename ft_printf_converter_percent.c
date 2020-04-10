@@ -6,48 +6,55 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 22:32:41 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/09 00:52:04 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/10 13:53:04 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static void		init(t_printf_flag *f)
+static void		adjust_flag(t_printf_flag *f)
 {
 	if (f->minus)
 		f->zero = 0;
 }
 
-static size_t	get_res_len(t_printf_flag *f)
+static int		set_content(va_list ap, t_printf_flag *f, t_printf_content *pc)
 {
-	size_t res_len;
-
-	res_len = (f->width > 1) ? f->width : 1;
-	return (res_len);
+	if (f == NULL && va_arg(ap, int))
+		return (ERROR);
+	pc->content = ft_strdup("%");
+	if (pc->content == NULL)
+		return (ERROR);
+	pc->content_len = ft_strlen(pc->content);
+	return (SUCCESS);
 }
 
-static void		set_res(t_printf_flag *f, t_printf_res *r)
+static int		set_res(t_printf_flag *f, t_printf_res *r, t_printf_content *pc)
 {
 	size_t idx;
 
+	r->res_len = ft_sizet_max(f->width, pc->content_len);
+	if (!(r->res = (char *)malloc(sizeof(char) * r->res_len)))
+		return (ERROR);
 	if (f->zero)
 		ft_memset(r->res, '0', r->res_len);
 	else
 		ft_memset(r->res, ' ', r->res_len);
-	idx = (f->minus) ? 0 : r->res_len - 1;
-	r->res[idx] = '%';
+	idx = (f->minus) ? 0 : r->res_len - pc->content_len;
+	ft_memcpy(&r->res[idx], pc->content, pc->content_len);
+	return (SUCCESS);
 }
 
 int				ft_printf_converter_percent(
 					t_printf_condition *c, t_printf_flag *f, t_printf_res *r)
 {
-	if (c == NULL)
+	t_printf_content	pc;
+
+	adjust_flag(f);
+	if (set_content(c->ap, f, &pc) == ERROR)
 		return (ERROR);
-	init(f);
-	r->res_len = get_res_len(f);
-	r->res = (char *)malloc(sizeof(char) * r->res_len);
-	if (r->res == NULL)
+	if (set_res(f, r, &pc) == ERROR)
 		return (ERROR);
-	set_res(f, r);
+	free(pc.content);
 	return (SUCCESS);
 }

@@ -5,70 +5,76 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/17 22:02:57 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/09 00:50:11 by kycho            ###   ########.fr       */
+/*   Created: 2020/04/10 15:09:54 by kycho             #+#    #+#             */
+/*   Updated: 2020/04/10 18:17:56 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static char	*get_sub_pointer(t_printf_flag *f, void *p)
+static void		adjust_flag(t_printf_flag *f)
 {
-	char	*sub_pointer;
-	size_t	len;
-	char	*tmp;
-	size_t	idx;
-
-	sub_pointer = ft_ultoa_base((size_t)p, "0123456789abcdef");
-	len = ft_strlen(sub_pointer);
-	if (f->precision_exist && f->precision > len)
-	{
-		tmp = sub_pointer;
-		if (!(sub_pointer = malloc(sizeof(char) * (f->precision + 1))))
-			return (NULL);
-		sub_pointer[f->precision] = '\0';
-		ft_memset(sub_pointer, '0', f->precision);
-		idx = f->precision - len;
-		ft_memcpy(&sub_pointer[idx], tmp, len);
-		free(tmp);
-	}
-	return (sub_pointer);
+	if (f->minus || f->precision_exist)
+		f->zero = 0;
 }
 
-static char	*get_pointer(t_printf_condition *c, t_printf_flag *f)
+static int		set_content(va_list ap, t_printf_flag *f, t_printf_content *pc)
 {
-	void *p;
-	char *sub_pointer;
-	char *pointer;
+	void			*p;
+	char			*base;
 
-	p = va_arg(c->ap, void *);
-	if (p == NULL && f->precision_exist && f->precision == 0)
-		sub_pointer = ft_strdup("");
-	else
-		sub_pointer = get_sub_pointer(f, p);
-	if (sub_pointer == NULL)
-		return (NULL);
-	pointer = ft_strjoin("0x", sub_pointer);
-	free(sub_pointer);
-	return (pointer);
-}
-
-int			ft_printf_converter_pointer(
-					t_printf_condition *c, t_printf_flag *f, t_printf_res *r)
-{
-	char	*pointer;
-	size_t	pointer_len;
-	size_t	idx;
-
-	if (!(pointer = get_pointer(c, f)))
+	p = va_arg(ap, void *);
+	base = "0123456789abcdef";
+	if (!(pc->prefix = ft_strdup("0x")))
 		return (ERROR);
-	pointer_len = ft_strlen(pointer);
-	r->res_len = (f->width > pointer_len) ? f->width : pointer_len;
+	pc->prefix_len = ft_strlen(pc->prefix);
+	if (f->precision_exist && f->precision == 0 && p == NULL)
+		pc->content = ft_strdup("");
+	else
+		pc->content = ft_ultoa_base((size_t)p, base);
+	if (pc->content == NULL)
+		return (ERROR);
+	pc->content_len = ft_strlen(pc->content);
+	pc->must_content_len = ft_sizet_max(f->precision, pc->content_len);
+	return (SUCCESS);
+}
+
+static int		set_res(t_printf_flag *f, t_printf_res *r, t_printf_content *pc)
+{
+	size_t idx;
+
+	r->res_len = ft_sizet_max(f->width, pc->prefix_len + pc->must_content_len);
 	if (!(r->res = (char *)malloc(sizeof(char) * r->res_len)))
 		return (ERROR);
-	idx = (f->minus != 0) ? 0 : r->res_len - pointer_len;
-	ft_memset(r->res, ' ', r->res_len);
-	ft_memcpy(&r->res[idx], pointer, pointer_len);
-	free(pointer);
+	if (f->zero)
+	{
+		ft_memset(r->res, '0', r->res_len);
+		ft_memcpy(&r->res[0], pc->prefix, pc->prefix_len);
+		idx = r->res_len - pc->content_len;
+	}
+	else
+	{
+		ft_memset(r->res, ' ', r->res_len);
+		idx = (f->minus) ? pc->prefix_len : r->res_len - pc->must_content_len;
+		ft_memcpy(&r->res[idx - pc->prefix_len], pc->prefix, pc->prefix_len);
+		ft_memset(&r->res[idx], '0', pc->must_content_len);
+		idx = idx + pc->must_content_len - pc->content_len;
+	}
+	ft_memcpy(&r->res[idx], pc->content, pc->content_len);
+	return (SUCCESS);
+}
+
+int				ft_printf_converter_pointer(
+					t_printf_condition *c, t_printf_flag *f, t_printf_res *r)
+{
+	t_printf_content pc;
+
+	adjust_flag(f);
+	if (set_content(c->ap, f, &pc) == ERROR)
+		return (ERROR);
+	if (set_res(f, r, &pc) == ERROR)
+		return (ERROR);
+	free(pc.prefix);
+	free(pc.content);
 	return (SUCCESS);
 }

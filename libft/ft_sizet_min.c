@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_get_specifier.c                                 :+:      :+:    :+:   */
+/*   ft_sizet_min.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/15 20:30:39 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/07 12:57:13 by kycho            ###   ########.fr       */
+/*   Created: 2020/04/10 20:37:52 by kycho             #+#    #+#             */
+/*   Updated: 2020/04/10 21:18:00 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-char	ft_get_specifier(const char *format, const char *specifiers)
+size_t	ft_sizet_min(size_t x, size_t y)
 {
-	size_t idx;
-
-	idx = 1;
-	while (format[idx])
-	{
-		if (ft_isinset(format[idx], specifiers))
-			break ;
-		idx++;
-	}
-	return (format[idx]);
+	return ((x < y) ? x : y);
 }

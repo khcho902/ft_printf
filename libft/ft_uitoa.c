@@ -1,51 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uitoa_base.c                                    :+:      :+:    :+:   */
+/*   ft_uitoa.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/19 22:57:18 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/07 14:03:42 by kycho            ###   ########.fr       */
+/*   Created: 2020/03/18 22:55:26 by kycho             #+#    #+#             */
+/*   Updated: 2020/04/10 21:16:55 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-static int	get_n_len(unsigned int n, size_t base_len)
+static size_t	get_n_len(unsigned int n)
 {
-	int n_len;
+	size_t len;
 
 	if (n == 0)
 		return (1);
-	n_len = 0;
+	len = 0;
 	while (n != 0)
 	{
-		n /= base_len;
-		n_len++;
+		len++;
+		n /= 10;
 	}
-	return (n_len);
+	return (len);
 }
 
-char		*ft_uitoa_base(unsigned int n, const char *base)
+char			*ft_uitoa(unsigned int n)
 {
 	char	*res;
-	int		n_len;
-	size_t	base_len;
+	size_t	len;
 
-	base_len = ft_strlen(base);
-	n_len = get_n_len(n, base_len);
-	res = (char *)malloc(sizeof(char) * (n_len + 1));
-	if (res == NULL)
+	len = get_n_len(n);
+	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
-	res[n_len] = '\0';
 	res[0] = '0';
-	n_len--;
+	res[len] = '\0';
+	len--;
 	while (n != 0)
 	{
-		res[n_len] = base[n % base_len];
-		n /= base_len;
-		n_len--;
+		res[len] = (n % 10) + '0';
+		n /= 10;
+		len--;
 	}
 	return (res);
 }

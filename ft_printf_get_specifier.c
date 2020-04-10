@@ -1,48 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_uitoa.c                                         :+:      :+:    :+:   */
+/*   ft_printf_get_specifier.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/18 22:55:26 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/07 14:07:38 by kycho            ###   ########.fr       */
+/*   Created: 2020/04/10 21:30:48 by kycho             #+#    #+#             */
+/*   Updated: 2020/04/10 21:31:14 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-static size_t	get_n_len(unsigned int n)
+char	ft_printf_get_specifier(const char *format, const char *specifiers)
 {
-	size_t len;
+	size_t idx;
 
-	if (n == 0)
-		return (1);
-	len = 0;
-	while (n != 0)
+	idx = 1;
+	while (format[idx])
 	{
-		len++;
-		n /= 10;
+		if (ft_isinset(format[idx], specifiers))
+			break ;
+		idx++;
 	}
-	return (len);
-}
-
-char			*ft_uitoa(unsigned int n)
-{
-	char	*res;
-	size_t	len;
-
-	len = get_n_len(n);
-	if (!(res = (char *)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	res[0] = '0';
-	res[len] = '\0';
-	len--;
-	while (n != 0)
-	{
-		res[len] = (n % 10) + '0';
-		n /= 10;
-		len--;
-	}
-	return (res);
+	return (format[idx]);
 }

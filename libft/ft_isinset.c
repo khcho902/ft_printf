@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sizet_min.c                                     :+:      :+:    :+:   */
+/*   ft_isinset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/04/10 20:37:52 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/10 20:38:23 by kycho            ###   ########.fr       */
+/*   Created: 2020/03/15 20:18:33 by kycho             #+#    #+#             */
+/*   Updated: 2020/04/10 21:16:40 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-size_t	ft_sizet_min(size_t x, size_t y)
+int	ft_isinset(char ch, const char *set)
 {
-	return ((x < y) ? x : y);
+	size_t idx;
+
+	idx = 0;
+	while (set[idx] != '\0')
+	{
+		if (set[idx] == ch)
+			return (1);
+		idx++;
+	}
+	return (0);
 }

@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ultoa_base.c                                    :+:      :+:    :+:   */
+/*   ft_uitoa_base.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/18 20:07:38 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/07 14:04:34 by kycho            ###   ########.fr       */
+/*   Created: 2020/03/19 22:57:18 by kycho             #+#    #+#             */
+/*   Updated: 2020/04/10 21:17:11 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 
-static int	get_n_len(unsigned long n, size_t base_len)
+static int	get_n_len(unsigned int n, size_t base_len)
 {
 	int n_len;
 
@@ -27,7 +27,7 @@ static int	get_n_len(unsigned long n, size_t base_len)
 	return (n_len);
 }
 
-char		*ft_ultoa_base(unsigned long n, const char *base)
+char		*ft_uitoa_base(unsigned int n, const char *base)
 {
 	char	*res;
 	int		n_len;

@@ -4,10 +4,10 @@ LIBFT_PATH = ./libft
 LIBFT_LIB = libft.a
 
 SRCS = ./ft_printf.c \
-       ./ft_conversion_handler.c \
        ./ft_printf_putchar.c \
-       ./ft_get_specifier.c \
-       ./ft_set_flag.c \
+       ./ft_printf_conversion_handler.c \
+       ./ft_printf_get_specifier.c \
+       ./ft_printf_set_flag.c \
        ./ft_printf_converter_char.c \
        ./ft_printf_converter_string.c \
        ./ft_printf_converter_pointer.c \
@@ -15,12 +15,6 @@ SRCS = ./ft_printf.c \
        ./ft_printf_converter_unsigned_int.c \
        ./ft_printf_converter_hex.c \
        ./ft_printf_converter_percent.c \
-       ./ft_isinset.c \
-       ./ft_uitoa.c \
-       ./ft_ultoa_base.c \
-       ./ft_uitoa_base.c \
-	   ./ft_sizet_max.c \
-	   ./ft_sizet_min.c \
 
 OBJS = $(SRCS:.c=.o)
 

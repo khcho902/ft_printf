@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/26 22:21:36 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/04 19:07:54 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/10 21:15:55 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,12 @@ void				ft_lstclear(t_list **lst, void (*del)(void *));
 void				ft_lstiter(t_list *lst, void (*f)(void *));
 t_list				*ft_lstmap
 						(t_list *lst, void *(*f)(void *), void (*del)(void *));
+
+int					ft_isinset(char ch, const char *set);
+char				*ft_uitoa(unsigned int n);
+char				*ft_uitoa_base(unsigned int n, const char *base);
+char				*ft_ultoa_base(unsigned long n, const char *base);
+size_t				ft_sizet_max(size_t x, size_t y);
+size_t				ft_sizet_min(size_t x, size_t y);
 
 #endif

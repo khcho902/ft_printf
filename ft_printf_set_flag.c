@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_set_flag.c                                      :+:      :+:    :+:   */
+/*   ft_printf_set_flag.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/15 20:40:46 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/09 00:48:28 by kycho            ###   ########.fr       */
+/*   Created: 2020/04/10 21:30:05 by kycho             #+#    #+#             */
+/*   Updated: 2020/04/10 21:30:22 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,8 @@ void	set_precision_flag(t_printf_flag *f, t_printf_condition *c, size_t *idx)
 	}
 }
 
-int		ft_set_flag(t_printf_flag *f, t_printf_condition *c, char specifier)
+int		ft_printf_set_flag(
+					t_printf_flag *f, t_printf_condition *c, char specifier)
 {
 	size_t idx;
 

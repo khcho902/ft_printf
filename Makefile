@@ -20,6 +20,7 @@ SRCS = ./ft_printf.c \
        ./ft_ultoa_base.c \
        ./ft_uitoa_base.c \
 	   ./ft_sizet_max.c \
+	   ./ft_sizet_min.c \
 
 OBJS = $(SRCS:.c=.o)
 

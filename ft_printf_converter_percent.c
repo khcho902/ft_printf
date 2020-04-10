@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/20 22:32:41 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/10 19:36:13 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/10 21:07:12 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static int		set_res(t_printf_flag *f, t_printf_res *r)
 }
 
 int				ft_printf_converter_percent(
-					t_printf_condition *c, t_printf_flag *f, t_printf_res *r)
+					va_list ap, t_printf_flag *f, t_printf_res *r)
 {
-	if (f == NULL && va_arg(c->ap, int))
+	if (f == NULL && va_arg(ap, int))
 		return (ERROR);
 	adjust_flag(f);
 	if (set_res(f, r) == ERROR)

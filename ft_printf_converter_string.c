@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 16:15:39 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/10 20:55:25 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/10 21:05:05 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ static int		set_res(t_printf_flag *f, t_printf_res *r, t_printf_content *pc)
 }
 
 int				ft_printf_converter_string(
-					t_printf_condition *c, t_printf_flag *f, t_printf_res *r)
+								va_list ap, t_printf_flag *f, t_printf_res *r)
 {
 	t_printf_content pc;
 
 	adjust_flag(f);
-	set_content(c->ap, f, &pc);
+	set_content(ap, f, &pc);
 	if (set_res(f, r, &pc) == ERROR)
 		return (ERROR);
 	return (SUCCESS);

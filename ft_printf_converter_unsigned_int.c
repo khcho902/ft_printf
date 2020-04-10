@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/19 21:42:16 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/10 03:31:11 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/10 21:06:14 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ static int		set_res(t_printf_flag *f, t_printf_res *r, t_printf_content *pc)
 }
 
 int				ft_printf_converter_unsigned_int(
-					t_printf_condition *c, t_printf_flag *f, t_printf_res *r)
+								va_list ap, t_printf_flag *f, t_printf_res *r)
 {
 	t_printf_content pc;
 
 	adjust_flag(f);
-	if (set_content(c->ap, f, &pc) == ERROR)
+	if (set_content(ap, f, &pc) == ERROR)
 		return (ERROR);
 	if (set_res(f, r, &pc) == ERROR)
 		return (ERROR);

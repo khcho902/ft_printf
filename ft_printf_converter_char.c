@@ -6,7 +6,7 @@
 /*   By: kycho <kycho@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/16 02:05:43 by kycho             #+#    #+#             */
-/*   Updated: 2020/04/10 19:24:20 by kycho            ###   ########.fr       */
+/*   Updated: 2020/04/10 19:35:47 by kycho            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,16 @@ static int		set_res(t_printf_flag *f, t_printf_res *r, va_list ap)
 	if (!(r->res = (char *)malloc(sizeof(char) * r->res_len)))
 		return (ERROR);
 	if (f->zero)
-	{
 		ft_memset(r->res, '0', r->res_len);
-		idx = r->res_len - 1;
-	}
 	else
-	{
 		ft_memset(r->res, ' ', r->res_len);
-		idx = (f->minus) ? 0 : r->res_len - 1;
-	}
+	idx = (f->minus) ? 0 : r->res_len - 1;
 	r->res[idx] = va_arg(ap, int);
 	return (SUCCESS);
 }
 
-int	ft_printf_converter_char(
-				t_printf_condition *c, t_printf_flag *f, t_printf_res *r)
+int				ft_printf_converter_char(
+					t_printf_condition *c, t_printf_flag *f, t_printf_res *r)
 {
 	adjust_flag(f);
 	if (set_res(f, r, c->ap) == ERROR)
